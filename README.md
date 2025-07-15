@@ -6,7 +6,8 @@
 
 🚀 This Python project was automatically set up using `pro_venv.py`.
 
-
+https://www.gyan.dev/ffmpeg/builds/#release-builds
+https://lmstudio.ai/
 
 ## 🗂️ Project Structure
 

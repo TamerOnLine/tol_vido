@@ -1,0 +1,16 @@
+# Add your dependencies here
+yt-dlp
+speechrecognition
+pydub
+transformers
+torch
+llama-cpp-python[server]
+tqdm
+starlette
+uvicorn
+fastapi
+sse-starlette
+starlette-context
+pydantic-settings
+huggingface_hub
+python-dotenv

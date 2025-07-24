@@ -168,10 +168,12 @@ Feel free to explore and build upon it!
 
 ## 🙌 Acknowledgements
 
-- [Mistral 7B](https://mistral.ai/)
-- [llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp)
-- [tiktoken](https://github.com/openai/tiktoken)
+This project would not have been possible without the following open-source tools and libraries. Sincere thanks to their developers and contributors:
+
+- [Mistral 7B](https://mistral.ai) – for providing the foundational language model.
+- [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) – for efficient local inference of LLMs.
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) – for reliable YouTube media extraction.
+- [tiktoken](https://github.com/openai/tiktoken) – for fast and accurate tokenization.
 
 ---
 

@@ -61,6 +61,49 @@ This will:
 - Generate `main.py`, `app.py`, `.vscode/` settings
 
 ### 3. Start the LLM server
+### ⚠️ Important: Pre-Run Setup
+
+Before running the main script, make sure the following steps are completed:
+
+#### 📁 1. Download and place FFmpeg binaries
+This project requires FFmpeg tools for audio conversion.
+
+- Download from: [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/)
+- Extract and copy the following files into a folder named `bin/` in the project root:
+
+```bash
+bin/
+├── ffmpeg.exe
+├── ffprobe.exe
+├── ffplay.exe      # (optional)
+```
+
+> You **do not need** to add FFmpeg to your system PATH. The project uses them directly from `./bin/`.
+
+---
+
+#### 📄 2. Create `.env` file
+
+In the project root, create a file named `.env` with the following content:
+
+```env
+# Required for downloading and running the model
+MODEL_NAME=mistral-7b-instruct-v0.1.Q4_K_M.gguf
+
+# Local path to the GGUF model file (adjust this path to match your setup)
+MODEL=r:/tol_vido/models/mistral-7b-instruct-v0.1.Q4_K_M.gguf
+
+# LLM Server runtime parameters
+N_CTX=4096
+N_THREADS=8
+N_GPU_LAYERS=35
+VERBOSE=true
+```
+
+These values are used by:
+- `tools/download_model.py` – to fetch the model from Hugging Face
+- `02_start_llm_server.py` – to launch the local LLM inference server
+
 
 ```bash
 python 02_start_llm_server.py
@@ -82,66 +125,9 @@ You’ll be prompted for a YouTube URL. After processing, the result will be sav
 ---
 
 ## 📦 Requirements
-
-This project uses **FFmpeg** to handle audio conversion.
-Make sure you have the following:
-
-- FFmpeg executables (`ffmpeg.exe`, `ffplay.exe`, `ffprobe.exe`) located in the `bin/` folder inside the project root.
-
-### ✅ How to get FFmpeg:
-1. Visit: [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/)
-2. Download the latest **release build** for Windows.
-3. Copy the following files to the `bin/` folder:
-   - `ffmpeg.exe`
-   - `ffplay.exe` *(optional)*
-   - `ffprobe.exe`
-
-> No need to modify system PATH — the project uses them from `./bin/` directly.
-
-
-Python 3.12+ and:
-
-```text
-yt-dlp
-speechrecognition
-pydub
-transformers
-torch
-llama-cpp-python[server]
-fastapi
-uvicorn
-tiktoken
-starlette
-...
-```
-
-Install manually:
-```bash
-pip install -r requirements.txt
-```
-
 ---
 
 ## 🌐 Model Setup (GGUF)
-
-### 1. Create `.env` file
-
-```env
-# Required for downloading and running the model
-MODEL_NAME=mistral-7b-instruct-v0.1.Q4_K_M.gguf
-
-# Local path to the GGUF model file
-MODEL=r:/tol_vido/models/mistral-7b-instruct-v0.1.Q4_K_M.gguf
-
-# LLM Server runtime parameters
-N_CTX=4096
-N_THREADS=8
-N_GPU_LAYERS=35
-VERBOSE=true
-```
-
-> These are used in both `tools/download_model.py` and `02_start_llm_server.py`.
-
 ### 2. Download the model
 
 ```bash
@@ -172,9 +158,11 @@ The setup script automatically generates:
 
 ---
 
-## 📄 License
+## 📜 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).  
+You are free to use, modify, and distribute it with attribution.  
+Feel free to explore and build upon it!
 
 ---
 
@@ -187,4 +175,17 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-> Made with ❤️ by [Tamer Faour](https://github.com/TamerOnLine)
+## 👨‍💻 About the Author
+
+🎯 **Tamer OnLine – Developer & Architect**  
+A dedicated software engineer and educator with a focus on building multilingual, modular, and open-source applications using Python, Flask, and PostgreSQL.
+
+🔹 Founder of **Flask University** – an initiative to create real-world, open-source Flask projects  
+🔹 Creator of [@TamerOnPi](https://www.youtube.com/@mystrotamer) – a YouTube channel sharing tech, tutorials, and Pi Network insights  
+🔹 Passionate about helping developers learn by building, one milestone at a time
+
+Connect or contribute:
+
+[![GitHub](https://img.shields.io/badge/GitHub-TamerOnLine-181717?style=flat&logo=github)](https://github.com/TamerOnLine)  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/tameronline/)  
+[![YouTube](https://img.shields.io/badge/YouTube-TamerOnPi-red?style=flat&logo=youtube)](https://www.youtube.com/@mystrotamer)

@@ -14,3 +14,4 @@ starlette-context
 pydantic-settings
 huggingface_hub
 python-dotenv
+tiktoken

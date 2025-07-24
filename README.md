@@ -83,6 +83,22 @@ You’ll be prompted for a YouTube URL. After processing, the result will be sav
 
 ## 📦 Requirements
 
+This project uses **FFmpeg** to handle audio conversion.
+Make sure you have the following:
+
+- FFmpeg executables (`ffmpeg.exe`, `ffplay.exe`, `ffprobe.exe`) located in the `bin/` folder inside the project root.
+
+### ✅ How to get FFmpeg:
+1. Visit: [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/)
+2. Download the latest **release build** for Windows.
+3. Copy the following files to the `bin/` folder:
+   - `ffmpeg.exe`
+   - `ffplay.exe` *(optional)*
+   - `ffprobe.exe`
+
+> No need to modify system PATH — the project uses them from `./bin/` directly.
+
+
 Python 3.12+ and:
 
 ```text

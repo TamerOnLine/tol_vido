@@ -1,10 +1,10 @@
-# Add your dependencies here
 yt-dlp
 speechrecognition
 pydub
 transformers
 torch
-llama-cpp-python[server]
+llama-cpp-python
+cython==3.0.10
 tqdm
 starlette
 uvicorn

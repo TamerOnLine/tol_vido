@@ -1,45 +1,55 @@
 import os
-import sys
-
-# ✅ Activate virtual environment
-venv_path = os.path.join(os.path.dirname(__file__), "..", "venv", "Lib", "site-packages")
-if venv_path not in sys.path:
-    sys.path.insert(0, venv_path)
-print("🧠 Virtual environment activated.")
-
-# ✅ Load environment variables from .env
-from dotenv import load_dotenv
-load_dotenv()
-
-# ✅ Import required packages
+from pathlib import Path
 from huggingface_hub import hf_hub_download
 
-# ✅ Read model name from .env
-MODEL_NAME = os.getenv("MODEL_NAME")
-if not MODEL_NAME:
-    raise ValueError("❌ MODEL_NAME is not defined in the .env file.")
-
-REPO_ID = "TheBloke/Mistral-7B-Instruct-v0.1-GGUF"
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "models")
+# ✅ إعداد مجلد النماذج
+BASE_DIR = os.path.dirname(__file__)
+MODEL_DIR = os.path.join(BASE_DIR, "..", "models")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-# ✅ Download model if not already present
-try:
-    model_path = hf_hub_download(
-        repo_id=REPO_ID,
-        filename=MODEL_NAME,
-        local_dir=MODEL_DIR,
-        cache_dir=MODEL_DIR,
-        force_download=False,
-        resume_download=True,
-    )
-    print(f"✅ Model downloaded to: {model_path}")
-except Exception as e:
-    print("❌ Download failed:", e)
-    sys.exit(1)
+# ✅ قائمة النماذج المراد تحميلها
+MODELS = [
+    {
+        "name": "mistral-7b-instruct",
+        "repo": "TheBloke/Mistral-7B-Instruct-v0.1-GGUF",
+        "filename": "mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+    },
 
-# ✅ Verify GGUF file header
-with open(model_path, "rb") as f:
-    if f.read(4) != b"GGUF":
-        raise ValueError("❌ Invalid file format: not a GGUF model.")
-print("✅ GGUF header is valid.")
+    {
+    "name": "leolm-german",
+    "repo": "TheBloke/leo-hessianai-7B-GGUF",
+    "filename": "leo-hessianai-7b.Q4_K_M.gguf"
+    }
+
+
+
+
+]
+
+# ✅ تحميل النماذج
+for model in MODELS:
+    print(f"\n🔽 Checking: {model['name']}")
+    local_path = os.path.join(MODEL_DIR, model["filename"])
+
+    if Path(local_path).exists():
+        print(f"🔁 Already exists: {local_path}")
+    else:
+        try:
+            model_path = hf_hub_download(
+                repo_id=model["repo"],
+                filename=model["filename"],
+                local_dir=MODEL_DIR,
+                cache_dir=MODEL_DIR,
+                force_download=False,
+                resume_download=True,
+            )
+            print(f"✅ Downloaded: {model_path}")
+
+            # ✅ التحقق من رأس GGUF
+            with open(model_path, "rb") as f:
+                if f.read(4) != b"GGUF":
+                    raise ValueError("❌ Invalid format: not a GGUF model.")
+            print("🧠 GGUF header is valid.")
+
+        except Exception as e:
+            print(f"❌ Failed to download {model['name']}: {e}")
